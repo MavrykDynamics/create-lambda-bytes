@@ -44,7 +44,7 @@ type aggregatorUpdateConfigActionType is
     |   ConfigAlphaPercentPerThousand       of unit
 
     |   ConfigPercentOracleThreshold        of unit
-    |   ConfigHeartBeatSeconds              of unit
+    |   ConfigHeartbeatSeconds              of unit
 
     |   ConfigRewardAmountStakedMvk         of unit
     |   ConfigRewardAmountXtz               of unit
@@ -113,7 +113,7 @@ type doormanUpdateConfigParamsType is [@layout:comb] record [
 ]
 
 type emergencyUpdateConfigActionType is 
-        ConfigVoteExpiryDays            of unit
+        ConfigDurationInMinutes         of unit
     |   ConfigRequiredFeeMutez          of unit
     |   ConfigStakedMvkPercentRequired  of unit
     |   ConfigMinStakedMvkForVoting     of unit
@@ -154,7 +154,7 @@ type governanceUpdateConfigActionType is
     |   ConfigBlocksPerProposalRound      of unit
     |   ConfigBlocksPerVotingRound        of unit
     |   ConfigBlocksPerTimelockRound      of unit
-    |   ConfigProposalDatTitleMaxLength   of unit
+    |   ConfigDataTitleMaxLength          of unit
     |   ConfigProposalTitleMaxLength      of unit
     |   ConfigProposalDescMaxLength       of unit
     |   ConfigProposalInvoiceMaxLength    of unit
@@ -324,8 +324,9 @@ type lendingControllerTogglePauseEntrypointType is [@layout:comb] record [
 type treasuryPausableEntrypointType is
         Transfer                       of bool   
     |   MintMvkAndTransfer             of bool
-    |   StakeMvk                       of bool
-    |   UnstakeMvk                     of bool
+    |   StakeTokens                    of bool
+    |   UnstakeTokens                  of bool
+    |   UpdateTokenOperatorsIsPaused   of bool
 
 type treasuryTogglePauseEntrypointType is [@layout:comb] record [
     targetEntrypoint  : treasuryPausableEntrypointType;
@@ -431,13 +432,17 @@ type updateOperatorVariantType is
         Add_operator    of operatorParameterType
     |   Remove_operator of operatorParameterType
 type updateOperatorsType is list(updateOperatorVariantType)
+type updateTokenOperatorsType is [@layout:comb] record [
+    tokenContractAddress    : address;
+    updateOperators         : updateOperatorsType;
+]
 
 type aggregatorConfigType is [@layout:comb] record [
     decimals                            : nat;
     alphaPercentPerThousand             : nat;
 
     percentOracleThreshold              : nat;
-    heartBeatSeconds                    : nat;
+    heartbeatSeconds                    : nat;
 
     rewardAmountStakedMvk               : nat;
     rewardAmountXtz                     : nat;
@@ -1292,9 +1297,10 @@ block {
 } with list[contractOperation]`
 };
 
-const updateMvkOperators  = (
+const updateTokenOperators  = (
 
     targetContract          : string,
+    tokenContractAddress    : string,
     operators               : Array<addOperator | removeOperator>
 
 ) => {
@@ -1327,13 +1333,16 @@ const updateMvkOperators  = (
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
     const contractOperation : operation = Tezos.transaction(
-        list[
+        record[
+            tokenContractAddress    = ("${tokenContractAddress}" : address);
+            updateOperators         = list[
             ${operatorRecord}
+            ];
         ],
         0tez,
         case (Tezos.get_entrypoint_opt(
-            "%updateMvkOperators",
-            ("${targetContract}" : address)) : option(contract(updateOperatorsType))) of [
+            "%updateTokenOperators",
+            ("${targetContract}" : address)) : option(contract(updateTokenOperatorsType))) of [
                     Some(contr) -> contr
                 |   None        -> (failwith("error_UPDATE_MVK_OPERATORS_THROUGH_PROXY_LAMBDA_FAIL"))
         ]
@@ -1341,19 +1350,21 @@ block {
 } with list[contractOperation]`
 };
 
-const stakeMvk  = (
+const stakeTokens  = (
 
     targetContract          : string,
+    stakingContract         : string,
     amount                  : number
 
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
     const contractOperation : operation = Tezos.transaction(
+        ("${stakingContract}" : address),
         ${amount}n,
         0tez,
         case (Tezos.get_entrypoint_opt(
-            "%stakeMvk",
+            "%stakeTokens",
             ("${targetContract}" : address)) : option(contract(nat))) of [
                     Some(contr) -> contr
                 |   None        -> (failwith("error_STAKE_MVK_THROUGH_PROXY_LAMBDA_FAIL"))
@@ -1362,19 +1373,21 @@ block {
 } with list[contractOperation]`
 };
 
-const unstakeMvk  = (
+const unstakeTokens  = (
 
     targetContract          : string,
+    stakingContract         : string,
     amount                  : number
 
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
     const contractOperation : operation = Tezos.transaction(
+        ("${stakingContract}" : address),
         ${amount}n,
         0tez,
         case (Tezos.get_entrypoint_opt(
-            "%unstakeMvk",
+            "%unstakeTokens",
             ("${targetContract}" : address)) : option(contract(nat))) of [
                     Some(contr) -> contr
                 |   None        -> (failwith("error_UNSTAKE_MVK_THROUGH_PROXY_LAMBDA_FAIL"))
@@ -1392,7 +1405,7 @@ const createAggregator  = (
     decimals                : number,
     alphaPercentPerThousand : number,
     percentOracleThreshold  : number,
-    heartBeatSeconds        : number,
+    heartbeatSeconds        : number,
     rewardAmountStakedMvk   : number,
     rewardAmountXtz         : number,
     metadata                : string
@@ -1421,7 +1434,7 @@ block {
                 decimals                = ${decimals}n;
                 alphaPercentPerThousand = ${alphaPercentPerThousand}n;
                 percentOracleThreshold  = ${percentOracleThreshold}n;
-                heartBeatSeconds        = ${heartBeatSeconds}n;
+                heartbeatSeconds        = ${heartbeatSeconds}n;
                 rewardAmountStakedMvk   = ${rewardAmountStakedMvk}n;
                 rewardAmountXtz         = ${rewardAmountXtz}n;
             ];

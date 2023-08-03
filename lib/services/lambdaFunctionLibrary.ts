@@ -13,6 +13,14 @@ type setLambdaType is [@layout:comb] record [
     name                  : string;
     func_bytes            : bytes;
 ]
+type farmTypeType is 
+        Farm    of unit
+    |   MFarm   of unit
+type setFarmLambdaType is [@layout:comb] record [
+    name                  : string;
+    func_bytes            : bytes;
+    farmType              : farmTypeType;
+]
 
 type updateMetadataType is [@layout:comb] record [
     metadataKey      : string;
@@ -436,6 +444,14 @@ type updateTokenOperatorsType is [@layout:comb] record [
     tokenContractAddress    : address;
     updateOperators         : updateOperatorsType;
 ]
+type stakeTokensType is [@layout:comb] record [
+    contractAddress  : address;
+    amount           : nat;
+]
+type unstakeTokensType is [@layout:comb] record [
+    contractAddress  : address;
+    amount           : nat;
+]
 
 type aggregatorConfigType is [@layout:comb] record [
     decimals                            : nat;
@@ -676,20 +692,27 @@ const setProductLambda  = (
 
     targetContract: string,
     lambdaName: string,
-    lambdaBytes: string
+    lambdaBytes: string,
+    farmType: undefined | "Farm" | "MFarm"
 
 ) => {
+
+    // If the contract is a farm factory, the entrypoint type changes
+    const entrypointType        = farmType ? "setFarmLambdaType" : "setLambdaType";
+    const additionalParameter   = farmType ? `farmType=(${farmType}: farmTypeType);` : "";
+    
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
     const contractOperation : operation = Tezos.transaction(
         record[
             name=("${lambdaName}" : string);
-            func_bytes=("${lambdaBytes}": bytes)
+            func_bytes=("${lambdaBytes}": bytes);
+            ${additionalParameter}
         ],
         0tez,
         case (Tezos.get_entrypoint_opt(
             "%setProductLambda",
-            ("${targetContract}" : address)) : option(contract(setLambdaType))) of [
+            ("${targetContract}" : address)) : option(contract(${entrypointType}))) of [
                     Some(contr) -> contr
                 |   None        -> (failwith("error_SET_PRODUCT_LAMBDA_THROUGH_PROXY_LAMBDA_FAIL"))
         ]
@@ -1360,12 +1383,14 @@ const stakeTokens  = (
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
     const contractOperation : operation = Tezos.transaction(
-        ("${stakingContract}" : address),
-        ${amount}n,
+        record[
+            contractAddress     = ("${stakingContract}" : address);
+            amount              = ${amount}n;
+        ],
         0tez,
         case (Tezos.get_entrypoint_opt(
             "%stakeTokens",
-            ("${targetContract}" : address)) : option(contract(nat))) of [
+            ("${targetContract}" : address)) : option(contract(stakeTokensType))) of [
                     Some(contr) -> contr
                 |   None        -> (failwith("error_STAKE_MVK_THROUGH_PROXY_LAMBDA_FAIL"))
         ]
@@ -1383,12 +1408,14 @@ const unstakeTokens  = (
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
     const contractOperation : operation = Tezos.transaction(
-        ("${stakingContract}" : address),
-        ${amount}n,
+        record[
+            contractAddress     = ("${stakingContract}" : address);
+            amount              = ${amount}n;
+        ],
         0tez,
         case (Tezos.get_entrypoint_opt(
             "%unstakeTokens",
-            ("${targetContract}" : address)) : option(contract(nat))) of [
+            ("${targetContract}" : address)) : option(contract(unstakeTokensType))) of [
                     Some(contr) -> contr
                 |   None        -> (failwith("error_UNSTAKE_MVK_THROUGH_PROXY_LAMBDA_FAIL"))
         ]

@@ -253,6 +253,7 @@ type delegationPausableEntrypointType is
     |   UnregisterAsSatellite           of bool
     |   UpdateSatelliteRecord           of bool
     |   DistributeReward                of bool
+    |   TakeSatellitesSnapshot          of bool
 
 type delegationTogglePauseEntrypointType is [@layout:comb] record [
     targetEntrypoint  : delegationPausableEntrypointType;
@@ -332,9 +333,9 @@ type lendingControllerTogglePauseEntrypointType is [@layout:comb] record [
 type treasuryPausableEntrypointType is
         Transfer                       of bool   
     |   MintMvkAndTransfer             of bool
+    |   UpdateTokenOperators           of bool
     |   StakeTokens                    of bool
     |   UnstakeTokens                  of bool
-    |   UpdateTokenOperatorsIsPaused   of bool
 
 type treasuryTogglePauseEntrypointType is [@layout:comb] record [
     targetEntrypoint  : treasuryPausableEntrypointType;

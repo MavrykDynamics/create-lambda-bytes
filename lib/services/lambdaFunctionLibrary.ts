@@ -201,6 +201,10 @@ type lendingControllerUpdateConfigActionType is
     |   ConfigMinimumLoanFeePercent     of unit
     |   ConfigMinLoanFeeTreasuryShare   of unit
     |   ConfigInterestTreasuryShare     of unit
+    |   ConfigLastCompletedDataMaxDelay of unit
+    |   ConfigMaxVaultLiqPercent        of unit
+    |   ConfigLiquidationDelayInMins    of unit
+    |   ConfigLiquidationMaxDuration    of unit
 
 type lendingControllerUpdateConfigParamsType is [@layout:comb] record [
     updateConfigNewValue    : nat;  

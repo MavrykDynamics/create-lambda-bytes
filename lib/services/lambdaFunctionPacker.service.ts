@@ -67,14 +67,14 @@ function getLigo (
 const compileLambdaFunctionContract = async(
 
     contractPath: string = "",
-    ligoVersion: string = "0.62.0",
+    ligoVersion: string = "0.60.0m",
 
 ) => {
 
     const ligo = getLigo(true, ligoVersion);
 
     const jsonFormat = execSync(
-        `${ligo} compile contract ${contractPath} --michelson-format json --protocol lima --deprecated`,
+        `${ligo} compile contract ${contractPath} --michelson-format json --protocol lima`,
         { 
             maxBuffer: 1024 * 1024,
             timeout: 1024 * 1024

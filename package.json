@@ -6,7 +6,9 @@
   "bin": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc && cp ./lib/services/governanceProxyLambdaFunction.ligo ./dist/services/."
+    "build": "tsc && cp ./lib/services/governanceProxyLambdaFunction.ligo ./dist/services/.",
+    "install-deps": "git submodule sync --recursive && git submodule update --init --recursive --remote",
+    "build-taquito": "bash ./build-taquito.sh"
   },
   "repository": {
     "type": "git",

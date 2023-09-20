@@ -613,10 +613,10 @@ const setAdmin  = (
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         ("${newAdminAddress}": address),
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%setAdmin",
             ("${targetContract}": address)) : option(contract(address))) of [
                     Some(contr) -> contr
@@ -634,10 +634,10 @@ const setGovernance  = (
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         ("${newGovernanceAddress}" : address),
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%setGovernance",
             ("${targetContract}" : address)) : option(contract(address))) of [
                     Some(contr) -> contr
@@ -655,10 +655,10 @@ const setName  = (
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         ("${newName}" : string),
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%setName",
             ("${targetContract}" : address)) : option(contract(string))) of [
                     Some(contr) -> contr
@@ -677,13 +677,13 @@ const setLambda  = (
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         record[
             name=("${lambdaName}" : string);
             func_bytes=("${lambdaBytes}": bytes)
         ],
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%setLambda",
             ("${targetContract}" : address)) : option(contract(setLambdaType))) of [
                     Some(contr) -> contr
@@ -708,14 +708,14 @@ const setProductLambda  = (
     
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         record[
             name=("${lambdaName}" : string);
             func_bytes=("${lambdaBytes}": bytes);
             ${additionalParameter}
         ],
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%setProductLambda",
             ("${targetContract}" : address)) : option(contract(${entrypointType}))) of [
                     Some(contr) -> contr
@@ -734,13 +734,13 @@ const updateMetadata  = (
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         record[
             metadataKey=("${metadataKey}" : string);
             metadataHash=("${metadataHash}": bytes)
         ],
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%updateMetadata",
             ("${targetContract}" : address)) : option(contract(updateMetadataType))) of [
                     Some(contr) -> contr
@@ -759,13 +759,13 @@ const updateWhitelistContracts  = (
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         record [
             whitelistContractAddress  = ("${whitelistContractAddress}" : address);
             updateType                = (${updateType} : updateType);
         ],
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%updateWhitelistContracts",
             ("${targetContract}" : address)) : option(contract(updateWhitelistContractsType))) of [
                     Some(contr) -> contr
@@ -785,14 +785,14 @@ const updateGeneralContracts  = (
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         record [
             generalContractName     = "${generalContractName}";
             generalContractAddress  = ("${generalContractAddress}" : address);
             updateType              = (${updateType} : updateType);
         ],
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%updateGeneralContracts",
             ("${targetContract}" : address)) : option(contract(updateGeneralContractsType))) of [
                     Some(contr) -> contr
@@ -811,13 +811,13 @@ const updateWhitelistTokenContracts  = (
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         record [
             tokenContractAddress  = ("${tokenContractAddress}" : address);
             updateType            = (${updateType} : updateType);
         ],
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%updateWhitelistTokenContracts",
             ("${targetContract}" : address)) : option(contract(updateWhitelistTokenContractsType))) of [
                     Some(contr) -> contr
@@ -904,13 +904,13 @@ const updateConfig  = (
 
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         record [
             updateConfigNewValue    = ${updateConfigNewValue}n; 
             updateConfigAction      = (${updateConfigAction + "(Unit)"} : ${ligoConfigActionType})
         ],
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%updateConfig",
             ("${targetContract}" : address)) : option(contract(${ligoReturnType}))) of [
                     Some(contr) -> contr
@@ -927,10 +927,10 @@ const pauseAll  = (
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         unit,
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%pauseAll",
             ("${targetContract}" : address)) : option(contract(unit))) of [
                     Some(contr) -> contr
@@ -947,10 +947,10 @@ const unpauseAll  = (
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         unit,
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%unpauseAll",
             ("${targetContract}" : address)) : option(contract(unit))) of [
                     Some(contr) -> contr
@@ -1017,13 +1017,13 @@ const togglePauseEntrypoint  = (
 
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         record [
             targetEntrypoint  = (${targetEntrypoint}(${pause ? "True" : "False"}): ${ligoPausableEntrypointType});
             empty             = Unit;
         ],
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%togglePauseEntrypoint",
             ("${targetContract}" : address)) : option(contract(${ligoReturnType}))) of [
                     Some(contr) -> contr
@@ -1041,10 +1041,10 @@ const updateWhitelistDevelopers  = (
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         ("${whitelistedDeveloperAddress}" : address),
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%updateWhitelistDevelopers",
             ("${targetContract}" : address)) : option(contract(address))) of [
                     Some(contr) -> contr
@@ -1062,10 +1062,10 @@ const setGovernanceProxy  = (
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         ("${governanceProxyAddress}" : address),
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%setGovernanceProxy",
             ("${targetContract}" : address)) : option(contract(address))) of [
                     Some(contr) -> contr
@@ -1092,7 +1092,7 @@ const createFarm  = (
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         record[
             name                     = "${farmName}";
             addToGeneralContracts    = ${addToGeneralContracts ? "True" : "False"};
@@ -1109,8 +1109,8 @@ block {
                 tokenStandard            = (${lpTokenStandard == "fa12" ? "Fa12" : "Fa2"}: lpStandardType);
             ];
         ],
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%createFarm",
             ("${targetContract}" : address)) : option(contract(createFarmType))) of [
                     Some(contr) -> contr
@@ -1138,7 +1138,7 @@ const createFarmMToken  = (
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         record[
             name                     = "${farmName}";
             loanToken                = "${loanToken}";
@@ -1156,8 +1156,8 @@ block {
                 tokenStandard            = (${lpTokenStandard == "fa12" ? "Fa12" : "Fa2"}: lpStandardType);
             ];
         ],
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%createFarmMToken",
             ("${targetContract}" : address)) : option(contract(createFarmMTokenType))) of [
                     Some(contr) -> contr
@@ -1178,15 +1178,15 @@ const initFarm  = (
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         record[
             totalBlocks                 = ${totalBlocks}n;
             currentRewardPerBlock       = ${currentRewardPerBlock}n;
             forceRewardFromTransfer     = ${forceRewardFromTransfer ? "True" : "False"};
             infinite                    = ${infinite ? "True" : "False"};
         ],
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%initFarm",
             ("${targetContract}" : address)) : option(contract(initFarmParamsType))) of [
                     Some(contr) -> contr
@@ -1203,10 +1203,10 @@ const closeFarm  = (
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         unit,
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%closeFarm",
             ("${targetContract}" : address)) : option(contract(unit))) of [
                     Some(contr) -> contr
@@ -1227,15 +1227,15 @@ const createTreasury  = (
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         (record[
             baker                   = (${baker ? "Some((\"" + baker + "\": key_hash))" : "None"} : option(key_hash));
             name                    = "${treasuryName}";
             addToGeneralContracts   = ${addToGeneralContracts ? "True" : "False"};
             metadata                = ("${metadata}": bytes);
         ] : createTreasuryType),
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%createTreasury",
             ("${targetContract}" : address)) : option(contract(createTreasuryType))) of [
                     Some(contr) -> contr
@@ -1285,12 +1285,12 @@ const transfer  = (
 
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         list[
             ${transfersRecord}
         ],
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%transfer",
             ("${targetContract}" : address)) : option(contract(transferActionType))) of [
                     Some(contr) -> contr
@@ -1309,13 +1309,13 @@ const mintMvnAndTransfer  = (
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         record [
             to_ = ("${to_}" : address);
             amt = ${amount}n;
         ],
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%mintMvnAndTransfer",
             ("${targetContract}" : address)) : option(contract(mintMvnAndTransferType))) of [
                     Some(contr) -> contr
@@ -1360,15 +1360,15 @@ const updateTokenOperators  = (
 
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         record[
             tokenContractAddress    = ("${tokenContractAddress}" : address);
             updateOperators         = list[
             ${operatorRecord}
             ];
         ],
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%updateTokenOperators",
             ("${targetContract}" : address)) : option(contract(updateTokenOperatorsType))) of [
                     Some(contr) -> contr
@@ -1387,13 +1387,13 @@ const stakeTokens  = (
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         record[
             contractAddress     = ("${stakingContract}" : address);
             amount              = ${amount}n;
         ],
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%stakeTokens",
             ("${targetContract}" : address)) : option(contract(stakeTokensType))) of [
                     Some(contr) -> contr
@@ -1412,13 +1412,13 @@ const unstakeTokens  = (
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         record[
             contractAddress     = ("${stakingContract}" : address);
             amount              = ${amount}n;
         ],
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%unstakeTokens",
             ("${targetContract}" : address)) : option(contract(unstakeTokensType))) of [
                     Some(contr) -> contr
@@ -1456,7 +1456,7 @@ const createAggregator  = (
 
     const lambda =  `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         (record[
             name                  = "${aggregatorName}";
             addToGeneralContracts = ${addToGeneralContracts ? "True" : "False"};
@@ -1472,8 +1472,8 @@ block {
             ];
             metadata              = ("${metadata}": bytes);
         ] : createAggregatorParamsType),
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%createAggregator",
             ("${targetContract}" : address)) : option(contract(createAggregatorParamsType))) of [
                     Some(contr) -> contr
@@ -1492,10 +1492,10 @@ const updateInflationRate  = (
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         ${inflationRate}n,
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%updateInflationRate",
             ("${targetContract}" : address)) : option(contract(nat))) of [
                     Some(contr) -> contr
@@ -1512,10 +1512,10 @@ const triggerInflation  = (
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         unit,
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%triggerInflation",
             ("${targetContract}" : address)) : option(contract(unit))) of [
                     Some(contr) -> contr
@@ -1549,10 +1549,10 @@ const trackProductContract  = (
 
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         ("${productContractAddress}" : address),
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "${trackEntrypoint}",
             ("${targetContract}" : address)) : option(contract(address))) of [
                     Some(contr) -> contr
@@ -1586,10 +1586,10 @@ const untrackProductContract  = (
 
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         ("${productContractAddress}" : address),
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "${trackEntrypoint}",
             ("${targetContract}" : address)) : option(contract(address))) of [
                     Some(contr) -> contr
@@ -1610,15 +1610,15 @@ const addVestee  = (
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         record [
             vesteeAddress        = ("${vesteeAddress}" : address);
             totalAllocatedAmount = ${totalAllocatedAmount}n;
             cliffInMonths        = ${cliffInMonths}n;
             vestingInMonths      = ${vestingInMonths}n;
         ],
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%addVestee",
             ("${targetContract}" : address)) : option(contract(addVesteeType))) of [
                     Some(contr) -> contr
@@ -1636,10 +1636,10 @@ const removeVestee  = (
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         ("${vesteeAddress}" : address),
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%removeVestee",
             ("${targetContract}" : address)) : option(contract(address))) of [
                     Some(contr) -> contr
@@ -1660,15 +1660,15 @@ const updateVestee  = (
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         record [
             vesteeAddress           = ("${vesteeAddress}" : address);
             newTotalAllocatedAmount = ${newTotalAllocatedAmount}n;
             newCliffInMonths        = ${newCliffInMonths}n;
             newVestingInMonths      = ${newVestingInMonths}n;
         ],
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%updateVestee",
             ("${targetContract}" : address)) : option(contract(updateVesteeType))) of [
                     Some(contr) -> contr
@@ -1686,10 +1686,10 @@ const toggleVesteeLock  = (
 ) => {
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         ("${vesteeAddress}" : address),
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%toggleVesteeLock",
             ("${targetContract}" : address)) : option(contract(address))) of [
                     Some(contr) -> contr
@@ -1769,13 +1769,13 @@ const setLoanToken  = (
 
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         record [
             action = ${loanTokenActionRecord};
             empty  = Unit;
         ],
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%setLoanToken",
             ("${targetContract}" : address)) : option(contract(setLoanTokenActionType))) of [
                     Some(contr) -> contr
@@ -1848,13 +1848,13 @@ const setCollateralToken  = (
 
     return `function lambdaFunction (const _ : unit) : list(operation) is
 block {
-    const contractOperation : operation = Tezos.transaction(
+    const contractOperation : operation = Mavryk.transaction(
         record [
             action = ${loanTokenActionRecord}
             empty  = Unit;
         ],
-        0tez,
-        case (Tezos.get_entrypoint_opt(
+        0mav,
+        case (Mavryk.get_entrypoint_opt(
             "%setCollateralToken",
             ("${targetContract}" : address)) : option(contract(setCollateralTokenActionType))) of [
                     Some(contr) -> contr

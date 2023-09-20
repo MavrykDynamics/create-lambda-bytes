@@ -1,0 +1,4 @@
+[submodule "vendors/taquito"]
+	path = vendors/taquito
+	url = https://github.com/mavryk-network/taquito
+	branch = mv-addresses

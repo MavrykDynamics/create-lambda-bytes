@@ -21,7 +21,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "@taquito/taquito": "^16.1.2",
+    "@mavrykdynamics/taquito": "^17.5.0",
     "child_process": "^1.0.2",
     "fs": "^0.0.1-security"
   }

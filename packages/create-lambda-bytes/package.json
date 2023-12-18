@@ -3,7 +3,7 @@
   "version": "0.2.4m",
   "description": "Maven Finance Lambda functions packer",
   "keywords": [
-    "mavrrk",
+    "mavryk",
     "maven",
     "finance",
     "blockchain"
@@ -21,16 +21,13 @@
   "author": "Tristan Allaire <tristan@mavryk.io>",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/mavrykfinance/create-lambda-bytes.git"
   },
   "license": "MIT",
   "engines": {
     "node": ">=18"
   },
   "scripts": {
-    "test": "jest --coverage",
-    "test:watch": "jest --coverage --watch",
-    "test:prod": "npm run lint && npm run test -- --no-cache",
     "lint": "eslint --ext .js,.ts .",
     "precommit": "lint-staged",
     "prebuild": "rimraf dist",
@@ -41,24 +38,6 @@
     "{src,test}/**/*.ts": [
       "prettier --write",
       "eslint --fix"
-    ]
-  },
-  "jest": {
-    "transform": {
-      ".(ts|tsx)": "ts-jest"
-    },
-    "testEnvironment": "node",
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "coveragePathIgnorePatterns": [
-      "/node_modules/"
-    ],
-    "collectCoverageFrom": [
-      "src/**/*.{js,ts}"
     ]
   },
   "dependencies": {

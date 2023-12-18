@@ -1,9 +1,8 @@
 {
-  "name": "@mavrykdynamics/create-lambda-bytes",
-  "version": "0.3.0",
-  "description": "",
-  "main": "dist/index.js",
-  "bin": "dist/index.js",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "build": "nx run-many --target=build",
     "rebuild": "npm run clean && npm clean-install && npm run build",
@@ -15,45 +14,7 @@
     "build-docs": "typedoc --tsconfig ./tsconfig.typedoc.json",
     "version-stamp": "lerna run version-stamp"
   },
-  "jest": {
-    "transform": {
-      ".(ts|tsx)": "ts-jest"
-    },
-    "testPathIgnorePatterns": [
-      "/node_modules/"
-    ],
-    "testEnvironment": "node",
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "moduleNameMapper": {
-      "^@mavrykdynamics/create-lambda-bytes$": "<rootDir>/packages/taquito-core/src/taquito-core.ts"
-    },
-    "coveragePathIgnorePatterns": [
-      "/node_modules/",
-      "/test/"
-    ],
-    "collectCoverageFrom": [
-      "packages/**/src/**/*.{js,ts}"
-    ],
-    "watchPathIgnorePatterns": [
-      "/node_modules/",
-      "/integration-tests/",
-      "/example/"
-    ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/maven-finance/create-lambda-bytes.git"
-  },
-  "author": "",
-  "license": "MIT",
   "devDependencies": {
-    "@nrwl/jest": "^16.10.0",
-    "@types/jest": "^29.5.5",
     "@typescript-eslint/eslint-plugin": "^6.8.0",
     "@typescript-eslint/parser": "^6.8.0",
     "@types/node": "^20.1.7",
@@ -66,7 +27,6 @@
     "lint-staged": "^14.0.1",
     "lodash.camelcase": "^4.3.0",
     "prettier": "^3.0.3",
-    "ts-jest": "^29.1.1",
     "ts-node": "^10.9.1",
     "ts-toolbelt": "^9.6.0",
     "typescript": "^5.0.4"

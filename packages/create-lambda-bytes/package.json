@@ -1,6 +1,6 @@
 {
   "name": "@mavrykdynamics/create-lambda-bytes",
-  "version": "0.2.4m",
+  "version": "0.2.4-l1",
   "description": "Maven Finance Lambda functions packer",
   "keywords": [
     "mavryk",
@@ -21,7 +21,7 @@
   "author": "Tristan Allaire <tristan@mavryk.io>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mavrykfinance/create-lambda-bytes.git"
+    "url": "git+https://github.com/mavrykfinance/create-lambda-bytes.git"
   },
   "license": "MIT",
   "engines": {
@@ -29,8 +29,7 @@
   },
   "scripts": {
     "lint": "eslint --ext .js,.ts .",
-    "precommit": "lint-staged",
-    "prebuild": "rimraf dist",
+    "release": "npm publish",
     "build": "tsc --project ./tsconfig.prod.json --module commonjs && rollup -c rollup.config.ts --bundleConfigAsCjs && cp -R ./src/ligo ./dist/ligo",
     "start": "rollup -c rollup.config.ts --bundleConfigAsCjs -w"
   },

@@ -122,10 +122,17 @@ type doormanUpdateConfigParamsType is [@layout:comb] record [
 
 type emergencyUpdateConfigActionType is 
         ConfigDurationInMinutes         of unit
+<<<<<<< HEAD:lib/services/lambdaFunctionLibrary.ts
     |   ConfigRequiredFeeMutez          of unit
     |   ConfigStakedMvnPercentRequired  of unit
     |   ConfigMinStakedMvnForVoting     of unit
     |   ConfigMinStakedMvnToTrigger     of unit
+=======
+    |   ConfigRequiredFeeMumav          of unit
+    |   ConfigStakedMvkPercentRequired  of unit
+    |   ConfigMinStakedMvkForVoting     of unit
+    |   ConfigMinStakedMvkToTrigger     of unit
+>>>>>>> 93f062a (Proper module file structure implemented + Refactoring for L1):packages/create-lambda-bytes/src/lambdaFunctionLibrary.ts
     |   ConfigProposalTitleMaxLength    of unit
     |   ConfigProposalDescMaxLength     of unit
 
@@ -157,7 +164,7 @@ type governanceUpdateConfigActionType is
     |   ConfigMinProposalRoundVotePct     of unit
     |   ConfigMinQuorumPercentage         of unit
     |   ConfigMinYayVotePercentage        of unit
-    |   ConfigProposeFeeMutez             of unit
+    |   ConfigProposeFeeMumav             of unit
     |   ConfigMaxProposalsPerSatellite    of unit
     |   ConfigBlocksPerProposalRound      of unit
     |   ConfigBlocksPerVotingRound        of unit
@@ -412,14 +419,14 @@ type createTreasuryType is [@layout:comb] record[
     metadata                : bytes;
 ]
 
-type tezType             is unit
+type mavType             is unit
 type fa12TokenType       is address
 type fa2TokenType        is [@layout:comb] record [
     tokenContractAddress    : address;
     tokenId                 : nat;
 ]
 type tokenType is
-    |   Tez    of tezType         // unit
+    |   Mav    of mavType         // unit
     |   Fa12   of fa12TokenType   // address
     |   Fa2    of fa2TokenType    // record [ tokenContractAddress : address; tokenId : nat; ]
 
@@ -581,7 +588,7 @@ type setCollateralTokenActionType is [@layout:comb] record [
 ]
 
 type actionType is 
-        // Default Entrypoint to Receive Tez
+        // Default Entrypoint to Receive Mav
         Default                       of unit
     |   Empty                         of unit
 
@@ -1260,8 +1267,8 @@ const transfer  = (
         const tokenTypeFa12 = transfer.token as fa12;
         const tokenTypeFa2  = transfer.token as fa2;
         var tokenType: any;
-        if(transfer.token === "tez"){
-            tokenType       = "Tez";
+        if(transfer.token === "mav"){
+            tokenType       = "Mav";
         }
         else if("fa12" in transfer.token){
             tokenType       = `Fa12(("${tokenTypeFa12.fa12}": address))`;
@@ -1718,8 +1725,8 @@ const setLoanToken  = (
         const tokenTypeFa12 = createLoanTokenAction.tokenType as fa12;
         const tokenTypeFa2  = createLoanTokenAction.tokenType as fa2;
         var tokenType: any;
-        if(createLoanTokenAction.tokenType === "tez"){
-            tokenType       = "Tez";
+        if(createLoanTokenAction.tokenType === "mav"){
+            tokenType       = "Mav";
         }
         else if("fa12" in createLoanTokenAction.tokenType){
             tokenType       = `Fa12(("${tokenTypeFa12.fa12}": address))`;
@@ -1804,8 +1811,8 @@ const setCollateralToken  = (
         const tokenTypeFa12 = createCollateralTokenAction.tokenType as fa12;
         const tokenTypeFa2  = createCollateralTokenAction.tokenType as fa2;
         var tokenType: any;
-        if(createCollateralTokenAction.tokenType === "tez"){
-            tokenType       = "Tez";
+        if(createCollateralTokenAction.tokenType === "mav"){
+            tokenType       = "Mav";
         }
         else if("fa12" in createCollateralTokenAction.tokenType){
             tokenType       = `Fa12(("${tokenTypeFa12.fa12}": address))`;

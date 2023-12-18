@@ -328,10 +328,10 @@ Updates the configuration of the target contract.
       * `"ConfigMinMvnAmount"`
     * `"emergencyGovernance"`:
       * `"ConfigVoteExpiryDays"`:
-      * `"ConfigRequiredFeeMutez"`:
-      * `"ConfigStakedMvnPercentRequired"`:
-      * `"ConfigMinStakedMvnForVoting"`:
-      * `"ConfigMinStakedMvnForTrigger"`:
+      * `"ConfigRequiredFeeMumav"`:
+      * `"ConfigStakedMvkPercentRequired"`:
+      * `"ConfigMinStakedMvkForVoting"`:
+      * `"ConfigMinStakedMvkForTrigger"`:
       * `"ConfigProposalTitleMaxLength"`:
       * `"ConfigProposalDescMaxLength"`:
     * `"farm"`:
@@ -346,7 +346,7 @@ Updates the configuration of the target contract.
       * `"ConfigMinProposalRoundVotesReq"`:
       * `"ConfigMinQuorumPercentage"`:
       * `"ConfigMinYayVotePercentage"`:
-      * `"ConfigProposeFeeMutez"`:
+      * `"ConfigProposeFeeMumav"`:
       * `"ConfigMaxProposalsPerSatellite"`:
       * `"ConfigBlocksPerProposalRound"`:
       * `"ConfigBlocksPerVotingRound"`:
@@ -616,12 +616,12 @@ Transfers tokens from one treasury to an account.
       * amount: token amount to send
       * tokenContractAddress: token contract address
       * tokenId: token id
-    * tez transfers:
+    * mav transfers:
     ```ts
     {
       to_: string;
       amount: number;
-      token: "tez"
+      token: "mav"
     }
     ```
       * to_: receiver address
@@ -839,7 +839,7 @@ Creates or updates a loan token in the target contract.
         interestRateBelowOptimalUtilisation: number;
         interestRateAboveOptimalUtilisation: number;
         minRepaymentAmount: number;
-        tokenType: fa12 |    fa2 | "tez"; 
+        tokenType: fa12 |    fa2 | "mav"; 
       }
     } 
     ```
@@ -854,7 +854,7 @@ Creates or updates a loan token in the target contract.
     * `interestRateBelowOptimalUtilisation`: The interest rate below the optimal utilisation rate for the loan token.
     * `interestRateAboveOptimalUtilisation`: The interest rate above the optimal utilisation rate for the loan token.
     * `minRepaymentAmount`: The minimum repayment amount for the loan token.
-    * `tokenType`: The type of token. Can be `"tez"`, `fa12`, or `fa2`:
+    * `tokenType`: The type of token. Can be `"mav"`, `fa12`, or `fa2`:
       * fa12:
       ```ts
       {
@@ -924,7 +924,7 @@ Creates or updates a collateral token in the target contract.
           isStakedToken: boolean,
           stakingContractAddress: string | undefined,
           maxDepositAmount: number | undefined,
-          tokenType: fa12 | fa2 | "tez"
+          tokenType: fa12 | fa2 | "mav"
         }
       } 
       ```
@@ -937,7 +937,7 @@ Creates or updates a collateral token in the target contract.
       * `isStakedToken`: Whether the collateral token is a staked token.
       * `stakingContractAddress` (optional): The address of the contract that manages the staking of the collateral token.
       * `maxDepositAmount` (optional): The maximum amount of the collateral token that can be deposited.
-      * `tokenType`: The type of token. Can be `"tez"`, `"fa12"`, or `"fa2"`:
+      * `tokenType`: The type of token. Can be `"mav"`, `"fa12"`, or `"fa2"`:
         * fa12:
         ```ts
         {

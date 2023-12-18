@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { getLambdaFunction } from "./services/lambdaFunctionPacker.service"
+import { getLambdaFunction } from "./lambdaFunctionPacker.service"
 
 (async function compileLambdaFunction() {
 

@@ -1,4 +1,4 @@
-import { TezosToolkit } from '@taquito/taquito'
+import { TezosToolkit } from '@mavrykdynamics/taquito'
 import { execSync } from 'child_process';
 import * as fs from 'fs'
 
@@ -101,7 +101,7 @@ export const getLambdaFunction  = async(
     );
 
     // Write the result to the output file
-    const outputFile: string        = __dirname + "/governanceProxyLambdaFunction.ligo";
+    const outputFile: string        = __dirname + "/ligo/governanceProxyLambdaFunction.ligo";
     fs.writeFileSync(outputFile, generatedContract);
 
     // Start the compiling process

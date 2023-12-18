@@ -1,0 +1,33 @@
+[2K[1G[1myarn run v1.22.19[22m
+[2K[1G[33mwarning[39m ../../package.json: Invalid bin entry for "" (in "").
+[2K[1G[33mwarning[39m ../../package.json: "dependencies" has dependency "lerna" with range "^8.0.1" that collides with a dependency in "devDependencies" of the same name with version "^7.3.1"
+[2K[1G[33mwarning[39m Invalid bin entry for "" (in "").
+[2K[1G[2m$ rimraf dist[22m
+[2K[1G[2m$ tsc --project ./tsconfig.prod.json --module commonjs && rollup -c rollup.config.ts --bundleConfigAsCjs && cp -R ./src/ligo ./dist/ligo[22m
+[36m
+[1msrc/create-lambda-bytes.ts[22m → [1mdist/create-lambda-bytes.umd.js, dist/create-lambda-bytes.es6.js[22m...[39m
+[1m[33m(!) Error when using sourcemap for reporting an error: Can't resolve original location of error.[39m[22m
+[1msrc/lambdaFunctionLibrary.ts (1579:25)[22m
+[1m[33m(!) Missing shims for Node.js built-ins[39m[22m
+Creating a browser bundle that depends on "child_process" and "fs". You might need to include https://github.com/FredKSchott/rollup-plugin-polyfill-node
+[1m[33m(!) Unresolved dependencies[39m[22m
+[90mhttps://rollupjs.org/troubleshooting/#warning-treating-module-as-external-dependency[39m
+[1m@mavrykdynamics/taquito[22m (imported by "src/lambdaFunctionPacker.service.ts")
+[1mchild_process[22m (imported by "src/lambdaFunctionPacker.service.ts")
+[1mfs[22m (imported by "src/lambdaFunctionPacker.service.ts")
+[1m[33m(!) Missing global variable names[39m[22m
+[90mhttps://rollupjs.org/configuration-options/#output-globals[39m
+Use "output.globals" to specify browser global variable names corresponding to external modules:
+[1m@mavrykdynamics/taquito[22m (guessing "taquito")
+[1mchild_process[22m (guessing "child_process")
+[1mfs[22m (guessing "fs")
+[1m[33m(!) Use of eval is strongly discouraged[39m[22m
+[90mhttps://rollupjs.org/troubleshooting/#avoiding-eval[39m
+[1msrc/lambdaFunctionLibrary.ts[22m
+[90m1577:     functionCall = functionCall.slice(0, -1) + ")";
+1578:     // Return the generated contract
+1579:     return proxyContract(eval(functionCall));
+                               ^
+1580: };[39m
+[32mcreated [1mdist/create-lambda-bytes.umd.js, dist/create-lambda-bytes.es6.js[22m in [1m965ms[22m[39m
+[2K[1GDone in 2.19s.

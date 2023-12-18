@@ -1,0 +1,86 @@
+{
+  "name": "@mavrykdynamics/create-lambda-bytes",
+  "version": "0.2.4m",
+  "description": "Maven Finance Lambda functions packer",
+  "keywords": [
+    "mavrrk",
+    "maven",
+    "finance",
+    "blockchain"
+  ],
+  "main": "dist/create-lambda-bytes.umd.js",
+  "module": "dist/create-lambda-bytes.es6.js",
+  "typings": "dist/types/create-lambda-bytes.d.ts",
+  "files": [
+    "ligo",
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Tristan Allaire <tristan@mavryk.io>",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "jest --coverage",
+    "test:watch": "jest --coverage --watch",
+    "test:prod": "npm run lint && npm run test -- --no-cache",
+    "lint": "eslint --ext .js,.ts .",
+    "precommit": "lint-staged",
+    "prebuild": "rimraf dist",
+    "build": "tsc --project ./tsconfig.prod.json --module commonjs && rollup -c rollup.config.ts --bundleConfigAsCjs && cp -R ./src/ligo ./dist/ligo",
+    "start": "rollup -c rollup.config.ts --bundleConfigAsCjs -w"
+  },
+  "lint-staged": {
+    "{src,test}/**/*.ts": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  },
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "ts-jest"
+    },
+    "testEnvironment": "node",
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,ts}"
+    ]
+  },
+  "dependencies": {
+    "@mavrykdynamics/taquito": "^17.3.3"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.5",
+    "@types/node": "^20.1.7",
+    "@typescript-eslint/eslint-plugin": "^6.8.0",
+    "@typescript-eslint/parser": "^6.8.0",
+    "eslint": "^8.51.0",
+    "jest": "^29.7.0",
+    "jest-config": "^29.7.0",
+    "lint-staged": "^14.0.1",
+    "lodash.camelcase": "^4.3.0",
+    "prettier": "^3.0.3",
+    "rollup": "^4.1.4",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.1",
+    "ts-toolbelt": "^9.6.0",
+    "typescript": "^5.0.4"
+  }
+}

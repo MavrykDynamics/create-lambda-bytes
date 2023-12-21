@@ -54,7 +54,7 @@ type aggregatorUpdateConfigActionType is
     |   ConfigPercentOracleThreshold        of unit
     |   ConfigHeartbeatSeconds              of unit
 
-    |   ConfigRewardAmountStakedMvk         of unit
+    |   ConfigRewardAmountStakedMvn         of unit
     |   ConfigRewardAmountXtz               of unit
 
 type aggregatorUpdateConfigParamsType is [@layout:comb] record [
@@ -98,7 +98,7 @@ type councilUpdateConfigParamsType is [@layout:comb] record [
 ]
 
 type delegationUpdateConfigActionType is 
-        ConfigMinimumStakedMvkBalance of unit
+        ConfigMinimumStakedMvnBalance of unit
     |   ConfigDelegationRatio         of unit
     |   ConfigMaxSatellites           of unit
     |   ConfigSatNameMaxLength        of unit
@@ -112,7 +112,7 @@ type delegationUpdateConfigParamsType is [@layout:comb] record [
 ]
 
 type doormanUpdateConfigActionType is 
-        ConfigMinMvkAmount          of unit
+        ConfigMinMvnAmount          of unit
     |   Empty                       of unit
 
 type doormanUpdateConfigParamsType is [@layout:comb] record [
@@ -123,9 +123,9 @@ type doormanUpdateConfigParamsType is [@layout:comb] record [
 type emergencyUpdateConfigActionType is 
         ConfigDurationInMinutes         of unit
     |   ConfigRequiredFeeMutez          of unit
-    |   ConfigStakedMvkPercentRequired  of unit
-    |   ConfigMinStakedMvkForVoting     of unit
-    |   ConfigMinStakedMvkToTrigger     of unit
+    |   ConfigStakedMvnPercentRequired  of unit
+    |   ConfigMinStakedMvnForVoting     of unit
+    |   ConfigMinStakedMvnToTrigger     of unit
     |   ConfigProposalTitleMaxLength    of unit
     |   ConfigProposalDescMaxLength     of unit
 
@@ -231,7 +231,7 @@ type vaultFactoryUpdateConfigParamsType is [@layout:comb] record [
 type aggregatorPausableEntrypointType is
         UpdateData                    of bool
     |   WithdrawRewardXtz             of bool
-    |   WithdrawRewardStakedMvk       of bool
+    |   WithdrawRewardStakedMvn       of bool
 
 type aggregatorTogglePauseEntrypointType is [@layout:comb] record [
     targetEntrypoint  : aggregatorPausableEntrypointType;
@@ -243,7 +243,7 @@ type aggregatorFactoryPausableEntrypointType is
     |   UntrackAggregator           of bool
     |   TrackAggregator             of bool
     |   DistributeRewardXtz         of bool
-    |   DistributeRewardStakedMvk   of bool
+    |   DistributeRewardStakedMvn   of bool
 
 type aggregatorFactoryTogglePauseEntrypointType is [@layout:comb] record [
     targetEntrypoint      : aggregatorFactoryPausableEntrypointType;
@@ -265,8 +265,8 @@ type delegationTogglePauseEntrypointType is [@layout:comb] record [
 ];
 
 type doormanPausableEntrypointType is
-        Stake                         of bool
-    |   Unstake                       of bool
+        StakeMvn                      of bool
+    |   UnstakeMvn                    of bool
     |   Exit                          of bool
     |   Compound                      of bool
     |   FarmClaim                     of bool
@@ -336,7 +336,7 @@ type lendingControllerTogglePauseEntrypointType is [@layout:comb] record [
 
 type treasuryPausableEntrypointType is
         Transfer                       of bool   
-    |   MintMvkAndTransfer             of bool
+    |   MintMvnAndTransfer             of bool
     |   UpdateTokenOperators           of bool
     |   StakeTokens                    of bool
     |   UnstakeTokens                  of bool
@@ -431,7 +431,7 @@ type transferDestinationType is [@layout:comb] record[
 
 type transferActionType is list(transferDestinationType);
 
-type mintMvkAndTransferType is [@layout:comb] record [
+type mintMvnAndTransferType is [@layout:comb] record [
     to_             : address;
     amt             : nat;
 ]
@@ -465,7 +465,7 @@ type aggregatorConfigType is [@layout:comb] record [
     percentOracleThreshold              : nat;
     heartbeatSeconds                    : nat;
 
-    rewardAmountStakedMvk               : nat;
+    rewardAmountStakedMvn               : nat;
     rewardAmountXtz                     : nat;
 ];
 type oracleInformationType is [@layout:comb] record [
@@ -553,7 +553,7 @@ type createCollateralTokenActionType is [@layout:comb] record [
     
     isScaledToken           : bool; // mToken
     
-    // To extend functionality beyond sMVK to other staked tokens in future
+    // To extend functionality beyond sMVN to other staked tokens in future
     isStakedToken           : bool;
     stakingContractAddress  : option(address);
 
@@ -1300,7 +1300,7 @@ block {
 } with list[contractOperation]`
 };
 
-const mintMvkAndTransfer  = (
+const mintMvnAndTransfer  = (
 
     targetContract          : string,
     to_                     : string,
@@ -1316,10 +1316,10 @@ block {
         ],
         0tez,
         case (Tezos.get_entrypoint_opt(
-            "%mintMvkAndTransfer",
-            ("${targetContract}" : address)) : option(contract(mintMvkAndTransferType))) of [
+            "%mintMvnAndTransfer",
+            ("${targetContract}" : address)) : option(contract(mintMvnAndTransferType))) of [
                     Some(contr) -> contr
-                |   None        -> (failwith("error_MINT_MVK_AND_TRANSFER_THROUGH_PROXY_LAMBDA_FAIL"))
+                |   None        -> (failwith("error_MINT_MVN_AND_TRANSFER_THROUGH_PROXY_LAMBDA_FAIL"))
         ]
     );
 } with list[contractOperation]`
@@ -1372,7 +1372,7 @@ block {
             "%updateTokenOperators",
             ("${targetContract}" : address)) : option(contract(updateTokenOperatorsType))) of [
                     Some(contr) -> contr
-                |   None        -> (failwith("error_UPDATE_MVK_OPERATORS_THROUGH_PROXY_LAMBDA_FAIL"))
+                |   None        -> (failwith("error_UPDATE_MVN_OPERATORS_THROUGH_PROXY_LAMBDA_FAIL"))
         ]
     );
 } with list[contractOperation]`
@@ -1397,7 +1397,7 @@ block {
             "%stakeTokens",
             ("${targetContract}" : address)) : option(contract(stakeTokensType))) of [
                     Some(contr) -> contr
-                |   None        -> (failwith("error_STAKE_MVK_THROUGH_PROXY_LAMBDA_FAIL"))
+                |   None        -> (failwith("error_STAKE_MVN_THROUGH_PROXY_LAMBDA_FAIL"))
         ]
     );
 } with list[contractOperation]`
@@ -1422,7 +1422,7 @@ block {
             "%unstakeTokens",
             ("${targetContract}" : address)) : option(contract(unstakeTokensType))) of [
                     Some(contr) -> contr
-                |   None        -> (failwith("error_UNSTAKE_MVK_THROUGH_PROXY_LAMBDA_FAIL"))
+                |   None        -> (failwith("error_UNSTAKE_MVN_THROUGH_PROXY_LAMBDA_FAIL"))
         ]
     );
 } with list[contractOperation]`
@@ -1438,7 +1438,7 @@ const createAggregator  = (
     alphaPercentPerThousand : number,
     percentOracleThreshold  : number,
     heartbeatSeconds        : number,
-    rewardAmountStakedMvk   : number,
+    rewardAmountStakedMvn   : number,
     rewardAmountXtz         : number,
     metadata                : string
 
@@ -1467,7 +1467,7 @@ block {
                 alphaPercentPerThousand = ${alphaPercentPerThousand}n;
                 percentOracleThreshold  = ${percentOracleThreshold}n;
                 heartbeatSeconds        = ${heartbeatSeconds}n;
-                rewardAmountStakedMvk   = ${rewardAmountStakedMvk}n;
+                rewardAmountStakedMvn   = ${rewardAmountStakedMvn}n;
                 rewardAmountXtz         = ${rewardAmountXtz}n;
             ];
             metadata              = ("${metadata}": bytes);

@@ -329,9 +329,9 @@ Updates the configuration of the target contract.
     * `"emergencyGovernance"`:
       * `"ConfigVoteExpiryDays"`:
       * `"ConfigRequiredFeeMumav"`:
-      * `"ConfigStakedMvkPercentRequired"`:
-      * `"ConfigMinStakedMvkForVoting"`:
-      * `"ConfigMinStakedMvkForTrigger"`:
+      * `"ConfigStakednPercentRequired"`:
+      * `"ConfigMinStakedMvnForVoting"`:
+      * `"ConfigMinStakedMvnForTrigger"`:
       * `"ConfigProposalTitleMaxLength"`:
       * `"ConfigProposalDescMaxLength"`:
     * `"farm"`:

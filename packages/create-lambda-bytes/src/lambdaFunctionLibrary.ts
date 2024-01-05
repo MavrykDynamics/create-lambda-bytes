@@ -122,17 +122,10 @@ type doormanUpdateConfigParamsType is [@layout:comb] record [
 
 type emergencyUpdateConfigActionType is 
         ConfigDurationInMinutes         of unit
-<<<<<<< HEAD:lib/services/lambdaFunctionLibrary.ts
     |   ConfigRequiredFeeMutez          of unit
     |   ConfigStakedMvnPercentRequired  of unit
     |   ConfigMinStakedMvnForVoting     of unit
     |   ConfigMinStakedMvnToTrigger     of unit
-=======
-    |   ConfigRequiredFeeMumav          of unit
-    |   ConfigStakedMvkPercentRequired  of unit
-    |   ConfigMinStakedMvkForVoting     of unit
-    |   ConfigMinStakedMvkToTrigger     of unit
->>>>>>> 93f062a (Proper module file structure implemented + Refactoring for L1):packages/create-lambda-bytes/src/lambdaFunctionLibrary.ts
     |   ConfigProposalTitleMaxLength    of unit
     |   ConfigProposalDescMaxLength     of unit
 

@@ -1864,6 +1864,45 @@ block {
 } with list[contractOperation]`
 };
 
+export const getListAvailableFunctions = () => {
+    console.log(setAdmin)
+    console.log(setGovernance)
+    console.log(setName)
+    console.log(setLambda)
+    console.log(setProductLambda)
+    console.log(updateMetadata)
+    console.log(updateWhitelistContracts)
+    console.log(updateGeneralContracts)
+    console.log(updateWhitelistTokenContracts)
+    console.log(updateConfig)
+    console.log(pauseAll)
+    console.log(unpauseAll)
+    console.log(togglePauseEntrypoint)
+    console.log(updateWhitelistDevelopers)
+    console.log(setGovernanceProxy)
+    console.log(createFarm)
+    console.log(createFarmMToken)
+    console.log(initFarm)
+    console.log(closeFarm)
+    console.log(createTreasury)
+    console.log(transfer)
+    console.log(mintMvnAndTransfer)
+    console.log(updateTokenOperators)
+    console.log(stakeTokens)
+    console.log(unstakeTokens)
+    console.log(createAggregator)
+    console.log(updateInflationRate)
+    console.log(triggerInflation)
+    console.log(trackProductContract)
+    console.log(untrackProductContract)
+    console.log(addVestee)
+    console.log(removeVestee)
+    console.log(updateVestee)
+    console.log(toggleVesteeLock)
+    console.log(setLoanToken)
+    console.log(setCollateralToken)
+}
+
 export const generateProxyContract = (
 
     lambdaFunctionName: string,

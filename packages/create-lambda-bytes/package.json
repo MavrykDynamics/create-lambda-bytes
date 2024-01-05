@@ -1,6 +1,6 @@
 {
   "name": "@mavrykdynamics/create-lambda-bytes",
-  "version": "0.3.1-l1",
+  "version": "0.3.2-l1",
   "description": "Maven Finance Lambda functions packer",
   "keywords": [
     "mavryk",

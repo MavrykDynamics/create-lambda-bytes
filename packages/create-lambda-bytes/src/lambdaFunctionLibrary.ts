@@ -122,7 +122,7 @@ type doormanUpdateConfigParamsType is [@layout:comb] record [
 
 type emergencyUpdateConfigActionType is 
         ConfigDurationInMinutes         of unit
-    |   ConfigRequiredFeeMutez          of unit
+    |   ConfigRequiredFeeMumav          of unit
     |   ConfigStakedMvnPercentRequired  of unit
     |   ConfigMinStakedMvnForVoting     of unit
     |   ConfigMinStakedMvnToTrigger     of unit

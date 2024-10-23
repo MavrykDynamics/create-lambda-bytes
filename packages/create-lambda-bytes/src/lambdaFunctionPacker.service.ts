@@ -1,6 +1,8 @@
 import { TezosToolkit } from '@mavrykdynamics/taquito'
 import { execSync } from 'child_process';
 import * as fs from 'fs'
+import * as path from 'path'; // Import the 'path' module for path handling
+
 
 import { generateProxyContract } from './lambdaFunctionLibrary'
 
@@ -74,7 +76,7 @@ const compileLambdaFunctionContract = async(
     const ligo = getLigo(true, ligoVersion);
 
     const jsonFormat = execSync(
-        `${ligo} compile contract ${contractPath} --michelson-format json --protocol kathmandu`,
+        `${ligo} compile contract "${contractPath}" --michelson-format json --protocol kathmandu`,
         { 
             maxBuffer: 1024 * 1024,
             timeout: 1024 * 1024
@@ -101,7 +103,8 @@ export const getLambdaFunction  = async(
     );
 
     // Write the result to the output file
-    const outputFile: string        = __dirname + "/ligo/governanceProxyLambdaFunction.ligo";
+    const outputFile: string = path.resolve(__dirname, "ligo/governanceProxyLambdaFunction.ligo");
+
     fs.writeFileSync(outputFile, generatedContract);
 
     // Start the compiling process

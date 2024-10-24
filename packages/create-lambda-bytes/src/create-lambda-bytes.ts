@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-import { getLambdaFunction } from "./services/lambdaFunctionPacker.service"
+import { getLambdaFunction } from "./lambdaFunctionPacker.service"
+import { getListAvailableFunctions } from "./lambdaFunctionLibrary"
 
 (async function compileLambdaFunction() {
 
@@ -10,6 +11,7 @@ import { getLambdaFunction } from "./services/lambdaFunctionPacker.service"
     const lambdaFunctionParameters        = args;
 
     if (!rpc || !governanceProxyContractAddress || !lambdaFunctionName) {
+        getListAvailableFunctions()
         return console.info("Usage: proposal-data-maker <rpc_url> <governance_proxy_contract_address> <lambda_function_name> <parameters...>");
     }
 

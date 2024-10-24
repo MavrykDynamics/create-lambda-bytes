@@ -6,7 +6,7 @@
 
 ## Features
 
-- This package aims to simplify the creation of bytes used during the governance rounds of the Mavryk Finance dApp
+- This package aims to simplify the creation of bytes used during the governance rounds of the Maven Finance dApp
 - Uses typescript to generate a ligo that it then compiles using docker
 - Can be used globally or imported in a typescript file
 
@@ -80,8 +80,8 @@ let bytes   = await createLambdaBytes(
         100,
         Buffer.from(
             JSON.stringify({
-            name: 'MAVRYK Farm',
-            description: 'MAVRYK Farm Contract',
+            name: 'MAVEN Farm',
+            description: 'MAVEN Farm Contract',
             version: 'v1.0.0',
             liquidityPairToken: {
                 tokenAddress: ['KT18qSo4Ch2Mfq4jP3eME7SWHB8B8EDTtVBu'],
@@ -95,7 +95,7 @@ let bytes   = await createLambdaBytes(
                     tokenAddress: ['KT1LN4LPSqTMS7Sd2CJw4bbDGRkMv2t68Fy9']
                 }
             },
-            authors: ['MAVRYK Dev Team <contact@mavryk.finance>'],
+            authors: ['MAVEN Dev Team <contact@maven.finance>'],
             }),
             'ascii',
         ).toString('hex'),
@@ -298,7 +298,7 @@ Updates the configuration of the target contract.
       * `"ConfigAlphaPercentPerThousand"`:
       * `"ConfigPercentOracleThreshold"`:
       * `"ConfigHeartBeatSeconds"`:
-      * `"ConfigRewardAmountStakedMvk"`:
+      * `"ConfigRewardAmountStakedMvn"`:
       * `"ConfigRewardAmountXtz"`:
     * `"aggregatorFactory"`:
       * `"ConfigAggregatorNameMaxLength"`:
@@ -317,7 +317,7 @@ Updates the configuration of the target contract.
       * `"ConfigRequestTokenNameMaxLength"`:
       * `"ConfigRequestPurposeMaxLength"`:
     * `"delegation"`:
-      * `"ConfigMinimumStakedMvkBalance"`:
+      * `"ConfigMinimumStakedMvnBalance"`:
       * `"ConfigDelegationRatio"`:
       * `"ConfigMaxSatellites"`:
       * `"ConfigSatNameMaxLength"`:
@@ -325,13 +325,13 @@ Updates the configuration of the target contract.
       * `"ConfigSatImageMaxLength"`:
       * `"ConfigSatWebsiteMaxLength"`:
     * `"doorman"`:
-      * `"ConfigMinMvkAmount"`
+      * `"ConfigMinMvnAmount"`
     * `"emergencyGovernance"`:
       * `"ConfigVoteExpiryDays"`:
-      * `"ConfigRequiredFeeMutez"`:
-      * `"ConfigStakedMvkPercentRequired"`:
-      * `"ConfigMinStakedMvkForVoting"`:
-      * `"ConfigMinStakedMvkForTrigger"`:
+      * `"ConfigRequiredFeeMumav"`:
+      * `"ConfigStakednPercentRequired"`:
+      * `"ConfigMinStakedMvnForVoting"`:
+      * `"ConfigMinStakedMvnForTrigger"`:
       * `"ConfigProposalTitleMaxLength"`:
       * `"ConfigProposalDescMaxLength"`:
     * `"farm"`:
@@ -346,7 +346,7 @@ Updates the configuration of the target contract.
       * `"ConfigMinProposalRoundVotesReq"`:
       * `"ConfigMinQuorumPercentage"`:
       * `"ConfigMinYayVotePercentage"`:
-      * `"ConfigProposeFeeMutez"`:
+      * `"ConfigProposeFeeMumav"`:
       * `"ConfigMaxProposalsPerSatellite"`:
       * `"ConfigBlocksPerProposalRound"`:
       * `"ConfigBlocksPerVotingRound"`:
@@ -413,13 +413,13 @@ Toggles the pause state of the specified entrypoint on the target contract.
     * `"aggregator"`:
       * `"UpdateData"`
     	* `"WithdrawRewardXtz"`
-    	* `"WithdrawRewardStakedMvk"`
+    	* `"WithdrawRewardStakedMvn"`
 		*`"aggregatorFactory"`:
       * `"CreateAggregator"`
     	* `"UntrackAggregator"`
     	* `"TrackAggregator"`
     	* `"DistributeRewardXtz"`
-    	* `"DistributeRewardStakedMvk"`
+    	* `"DistributeRewardStakedMvn"`
 		*`"delegation"`:
       * `"DelegateToSatellite"`
     	* `"UndelegateFromSatellite"`
@@ -464,9 +464,9 @@ Toggles the pause state of the specified entrypoint on the target contract.
     	* `"VaultWithdrawStakedToken"`
 		*`"treasury"`:
       * `"Transfer"`
-    	* `"MintMvkAndTransfer"`
-    	* `"StakeMvk"`
-    	* `"UnstakeMvk"`
+    	* `"MintMvnAndTransfer"`
+    	* `"StakeMvn"`
+    	* `"UnstakeMvn"`
 		*`"treasuryFactory"`:
       * `"CreateTreasury"`
     	* `"TrackTreasury"`
@@ -511,7 +511,7 @@ Creates a new farm.
   * `forceRewardFromTransfer`: Whether to force rewards to be transferred to the farm from a treasury instead of being minted.
   * `infinite`: Whether the farm has an infinite duration.
   * `totalBlocks`: The total number of blocks in the farm.
-  * `currentRewardPerBlock`: The current reward per block in SMVK.
+  * `currentRewardPerBlock`: The current reward per block in SMVN.
   * `metadata`: The metadata for the farm contract in bytes.
   * `lpTokenAddress`: The address of the liquidity pool token.
   * `lpTokenId`: The token id of the liquidity pool token if the token is FA2.
@@ -532,7 +532,7 @@ Creates a new farm using a MToken as a LPToken.
   * `forceRewardFromTransfer`: Whether to force rewards to be transferred to the farm from a treasury instead of being minted.
   * `infinite`: Whether the farm has an infinite duration.
   * `totalBlocks`: The total number of blocks in the farm.
-  * `currentRewardPerBlock`: The current reward per block in SMVK.
+  * `currentRewardPerBlock`: The current reward per block in SMVN.
   * `metadata`: The metadata for the farm contract in bytes.
   * `lpTokenAddress`: The address of the liquidity pool token.
   * `lpTokenId`: The token id of the liquidity pool token if the token is FA2.
@@ -548,7 +548,7 @@ Initializes a farm contract that was originated without its factory.
 
   * `targetContract`: The address of the farm contract.
   * `totalBlocks`: The total number of blocks in the farm.
-  * `currentRewardPerBlock`: The current reward per block in SMVK.
+  * `currentRewardPerBlock`: The current reward per block in SMVN.
   * `forceRewardFromTransfer`: Whether to force rewards to be transferred to the farm instead of being minted.
   * `infinite`: Whether the farm has an infinite duration.
 
@@ -616,38 +616,38 @@ Transfers tokens from one treasury to an account.
       * amount: token amount to send
       * tokenContractAddress: token contract address
       * tokenId: token id
-    * tez transfers:
+    * mav transfers:
     ```ts
     {
       to_: string;
       amount: number;
-      token: "tez"
+      token: "mav"
     }
     ```
       * to_: receiver address
       * amount: token amount to send
 
-## mintMvkAndTransfer
+## mintMvnAndTransfer
 
 **Description:**
 
-Mints mvk and transfers it to an address.
+Mints mvn and transfers it to an address.
 
 **Parameters:**
 
-  * `targetContract`: The address of the contract to mint mvk and transfer from.
-  * `to_`: The address to transfer the mvk to.
-  * `amount`: The amount of mvk to mint and transfer.
+  * `targetContract`: The address of the contract to mint mvn and transfer from.
+  * `to_`: The address to transfer the mvn to.
+  * `amount`: The amount of mvn to mint and transfer.
 
-## updateMvkOperators
+## updateMvnOperators
 
 **Description:**
 
-Updates the mvk operators for an address.
+Updates the mvn operators for an address.
 
 **Parameters:**
 
-  * `targetContract`: The address of the contract to update mvk operators on.
+  * `targetContract`: The address of the contract to update mvn operators on.
   * `operators`: An array of operators to update:
     * addOperator:
       ```ts
@@ -672,27 +672,27 @@ Updates the mvk operators for an address.
       * operator: operator address
       * tokenId: token id
 
-## stakeMvk
+## stakeMvn
 
 **Description:**
 
-Stakes mvk held by a treasury.
+Stakes mvn held by a treasury.
 
 **Parameters:**
 
-  * `targetContract`: The address of the contract to stake mvk on.
-  * `amount`: The amount of mvk to stake.
+  * `targetContract`: The address of the contract to stake mvn on.
+  * `amount`: The amount of mvn to stake.
 
-## unstakeMvk
+## unstakeMvn
 
 **Description:**
 
-Unstakes mvk to a treasury.
+Unstakes mvn to a treasury.
 
 **Parameters:**
 
-  * `targetContract`: The address of the contract to unstake mvk on.
-  * `amount`: The amount of mvk to unstake.
+  * `targetContract`: The address of the contract to unstake mvn on.
+  * `amount`: The amount of mvn to unstake.
 
 ## createAggregator
 
@@ -717,7 +717,7 @@ Creates a new aggregator contract.
   * `alphaPercentPerThousand`: The alpha percentage per thousand.
   * `percentOracleThreshold`: The percent oracle threshold.
   * `heartBeatSeconds`: The heartbeat seconds.
-  * `rewardAmountStakedMvk`: The reward amount in SMVK.
+  * `rewardAmountStakedMvn`: The reward amount in SMVN.
   * `rewardAmountXtz`: The reward amount in XTZ.
   * `metadata`: The metadata for the aggregator.
 
@@ -839,7 +839,7 @@ Creates or updates a loan token in the target contract.
         interestRateBelowOptimalUtilisation: number;
         interestRateAboveOptimalUtilisation: number;
         minRepaymentAmount: number;
-        tokenType: fa12 |    fa2 | "tez"; 
+        tokenType: fa12 |    fa2 | "mav"; 
       }
     } 
     ```
@@ -854,7 +854,7 @@ Creates or updates a loan token in the target contract.
     * `interestRateBelowOptimalUtilisation`: The interest rate below the optimal utilisation rate for the loan token.
     * `interestRateAboveOptimalUtilisation`: The interest rate above the optimal utilisation rate for the loan token.
     * `minRepaymentAmount`: The minimum repayment amount for the loan token.
-    * `tokenType`: The type of token. Can be `"tez"`, `fa12`, or `fa2`:
+    * `tokenType`: The type of token. Can be `"mav"`, `fa12`, or `fa2`:
       * fa12:
       ```ts
       {
@@ -924,7 +924,7 @@ Creates or updates a collateral token in the target contract.
           isStakedToken: boolean,
           stakingContractAddress: string | undefined,
           maxDepositAmount: number | undefined,
-          tokenType: fa12 | fa2 | "tez"
+          tokenType: fa12 | fa2 | "mav"
         }
       } 
       ```
@@ -937,7 +937,7 @@ Creates or updates a collateral token in the target contract.
       * `isStakedToken`: Whether the collateral token is a staked token.
       * `stakingContractAddress` (optional): The address of the contract that manages the staking of the collateral token.
       * `maxDepositAmount` (optional): The maximum amount of the collateral token that can be deposited.
-      * `tokenType`: The type of token. Can be `"tez"`, `"fa12"`, or `"fa2"`:
+      * `tokenType`: The type of token. Can be `"mav"`, `"fa12"`, or `"fa2"`:
         * fa12:
         ```ts
         {

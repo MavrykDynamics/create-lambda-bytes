@@ -12,7 +12,7 @@ export interface fa2 {
 export interface transferItem {
     to_     : string;
     amount  : number;
-    token   : fa12 | fa2 | "tez"
+    token   : fa12 | fa2 | "mav"
 }
 
 export interface addOperator {
@@ -50,7 +50,7 @@ export interface createLoanToken {
         interestRateBelowOptimalUtilisation     : number;
         interestRateAboveOptimalUtilisation     : number;
         minRepaymentAmount                      : number;
-        tokenType                               : fa12 | fa2 | "tez"; 
+        tokenType                               : fa12 | fa2 | "mav"; 
     }
 } 
 
@@ -80,7 +80,7 @@ export interface createCollateralToken {
         isStakedToken                           : boolean,
         stakingContractAddress                  : string | undefined,
         maxDepositAmount                        : number | undefined,
-        tokenType                               : fa12 | fa2 | "tez"
+        tokenType                               : fa12 | fa2 | "mav"
     }
 } 
 

@@ -1,4 +1,7 @@
 {
+  "cli": {
+    "packageManager": "npm"
+  },
   "extends": "nx/presets/npm.json",
   "tasksRunnerOptions": {
     "default": {
